@@ -2,7 +2,7 @@ package mbstring
 
 import "strings"
 
-// Coalesce returns the argument that's not an empty mbstring
+// Coalesce returns the first argument which is not an empty string
 func Coalesce(s ...string) string {
 	for _, str := range s {
 		if len(strings.TrimSpace(str)) > 0 {
