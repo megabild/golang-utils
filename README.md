@@ -1,4 +1,4 @@
-# Utils
+# Golang-Utils
 
 Some handy utils for the go programming language.
 
@@ -22,6 +22,9 @@ import (
 func main() {
 	// prints "Hello World!"
 	fmt.Println(mbstring.Coalesce("  ","Hello World!"))
+
+	// prints "\temp\folder"
+	fmt.Println(mbpath.RemoveDriveLetter("C:\\temp\\folder"))
 }
 ```
 
