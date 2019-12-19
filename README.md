@@ -17,6 +17,7 @@ import (
 	"fmt"
 	"github.com/megabild/golang-utils/mbpath"
 	"github.com/megabild/golang-utils/mbstring"
+	"github.com/megabild/golang-utils/mbmail"
 )
 
 func main() {
@@ -25,6 +26,9 @@ func main() {
 
 	// prints "\temp\folder"
 	fmt.Println(mbpath.RemoveDriveLetter("C:\\temp\\folder"))
+    
+	mailer := mbmail.Create("smtp.host.de", "username", "password", "Max Mustermann")
+	err := mailer.Send("recipient@mail.de", "subject", "message")
 }
 ```
 
