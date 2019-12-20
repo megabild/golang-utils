@@ -16,12 +16,22 @@ type mailer struct {
 	FromName string
 	Port     int
 	Charset  string
-	IsHTML   bool
+	HTML     bool
+}
+
+type Mailer interface {
+	Send(to string, subject string, msg string) error
+	SendMultiple(to []string, subject string, msg string) error
+	SetFrom(from string)
+	SetFromName(name string)
+	SetPort(port int)
+	SetCharset(charset string)
+	IsHTML(bool bool)
 }
 
 // Create
-func Create(host string, username string, password string, fromName string) mailer {
-	return mailer{
+func Create(host string, username string, password string, fromName string) *mailer {
+	return &mailer{
 		Host:     host,
 		Username: username,
 		Password: password,
@@ -29,8 +39,28 @@ func Create(host string, username string, password string, fromName string) mail
 		FromName: fromName,
 		Port:     587,
 		Charset:  "utf-8",
-		IsHTML:   true,
+		HTML:     true,
 	}
+}
+
+func (m *mailer) SetFrom(from string) {
+	m.From = from
+}
+
+func (m *mailer) SetFromName(name string) {
+	m.FromName = name
+}
+
+func (m *mailer) IsHTML(bool bool) {
+	m.HTML = bool
+}
+
+func (m *mailer) SetPort(port int) {
+	m.Port = port
+}
+
+func (m *mailer) SetCharset(charset string) {
+	m.Charset = charset
 }
 
 // Send to one recipient
@@ -43,7 +73,7 @@ func (m *mailer) SendMultiple(to []string, subject string, msg string) error {
 	auth := smtp.PlainAuth("", m.Username, m.Password, m.Host)
 
 	contentType := "text/plain"
-	if m.IsHTML {
+	if m.HTML {
 		contentType = "text/html"
 	}
 
