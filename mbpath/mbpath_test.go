@@ -9,4 +9,10 @@ func TestRemoveDriveLetter(t *testing.T) {
 	if result != want {
 		t.Errorf("Result was incorrect, got: %s, want: %s.", result, want)
 	}
+
+	empty := ``
+	resultEmpty := RemoveDriveLetter(empty)
+	if resultEmpty != empty {
+		t.Errorf("Result was incorrect, got: %s, want: %s.", result, want)
+	}
 }
