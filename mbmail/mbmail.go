@@ -65,7 +65,7 @@ func (m *mailer) SetCharset(charset string) {
 
 // Send to one recipient
 func (m *mailer) Send(to string, subject string, msg string) error {
-	return m.SendMultiple([]string{to}, subject, msg)
+	return m.SendMultiple(strings.Split(to, ","), subject, msg)
 }
 
 // Send to multiple recipients
@@ -79,7 +79,7 @@ func (m *mailer) SendMultiple(to []string, subject string, msg string) error {
 
 	header := make(map[string]string)
 	header["From"] = m.FromName + " <" + m.From + ">"
-	header["To"] = strings.Join(to, ";")
+	header["To"] = strings.Join(to, ",")
 	header["Subject"] = subject
 	header["Content-Type"] = contentType + "; charset=\"" + m.Charset + "\""
 	header["Content-Transfer-Encoding"] = "base64"
